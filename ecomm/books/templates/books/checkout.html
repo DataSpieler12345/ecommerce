@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load cart_helper %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid">
+    <h1 style="text-align: center;">Checkout</h1> <!-- Alinear "Checkout" a la izquierda -->
+    {% if message %}
+    <h1>{{message}}</h1>
+    {% else %}
+    <h2 style="text-align: left;">Address</h2> <!-- Alinear "Address" a la izquierda -->
+
+    <!-- address -->
+    <form action="{% url 'checkout' %}" method="POST">
+      {% csrf_token %}
+      <div class="mb-3" style="text-align: left;"> <!-- Alinear el formulario a la izquierda -->
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" class="form-control" name="Name">
+      </div>
+      <div class="mb-3" style="text-align: left;"> <!-- Alinear el formulario a la izquierda -->
+        <label for="Address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="Address">
+      </div> 
+      <div style="text-align: left;"> <!-- Alinear el botón a la izquierda -->
+        <button type="submit" class="btn btn-primary">Place Order</button>
+      </div>
+    </form>
+
+    <h2 style="text-align: center;">Summary</h2> <!-- Alinear "Summary" a la derecha -->
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="text-align: left">Book Title</th>
+          <th style="text-align: center">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in books %}
+        {% if book|is_in_cart:request.session %}
+        <tr>
+          <td style="text-align: left">{{ book.title }}</td>
+          <td style="text-align: center">{{ book.price }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="table-dark">
+          <td>Total</td>
+          <td>{{ books|sum_of_cart:request.session |floatformat:2 }}</td>
+        </tr>
+      </tfoot>
+    </table>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
