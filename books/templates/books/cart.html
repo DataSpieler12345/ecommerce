@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load cart_helper %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid">
+    <h1>Your Shopping Cart</h1>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="text-align: left">Book Title</th>
+          <th style="text-align: center">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in books %}
+        {% if book|is_in_cart:request.session %}
+        <tr>
+          <td style="text-align: left">{{ book.title }}</td>
+          <td style="text-align: center">{{ book.price }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="table-dark">
+          <td>Total</td>
+          <td>{{ books|sum_of_cart:request.session |floatformat:2 }}</td> <!-- Pasar la sesión al filtro -->
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+{% endblock %}
