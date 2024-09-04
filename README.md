@@ -15,7 +15,7 @@ This project is a Django-based e-commerce creation tool that utilizes the Django
 
 
 ![car3](https://github.com/user-attachments/assets/f578c03b-ee6d-42d6-a6da-f7a20a88962c)
-* Car tab
+* Cart tab
 
 ![checkout](https://github.com/user-attachments/assets/480fa597-d320-47a9-8787-4dd8cf210489)
 ![checkout1](https://github.com/user-attachments/assets/01424a34-a43f-4342-807f-18f48cd2e93e)
